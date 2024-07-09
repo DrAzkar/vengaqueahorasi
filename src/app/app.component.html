@@ -1,0 +1,53 @@
+<h1>Vamos que lo sacamos</h1>
+<!--Table-->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <!-- Quantity Column -->
+  <ng-container matColumnDef="quantity">
+    <th mat-header-cell *matHeaderCellDef> Quantity </th>
+    <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Price </th>
+    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+  </ng-container>
+
+  <!-- Delete Column -->
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let element"> 
+      <button mat-raised-button color="warn" (click)="deleteItem(element.id)">Delete</button> 
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<!--Form-->
+<form (ngSubmit)="onSubmit(stockForm)" #stockForm="ngForm">
+  <mat-form-field>
+    <input matInput placeholder="Name" name="name" ngModel required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Quantity" name="quantity" ngModel required>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Price" name="price" ngModel required>
+  </mat-form-field>
+  <button mat-raised-button type="submit">Add Item</button>
+</form>
+
+<!--Filter-->
+<mat-form-field>
+  <input matInput #filterInput placeholder="Filter by Name">
+</mat-form-field>
+<button mat-raised-button (click)="applyFilter(filterInput.value)">Filter</button>
